@@ -12,6 +12,8 @@ include_once "../layout/header.php";
       <th scope="col">Tipo cita</th>
       <th scope="col">Fecha</th>
       <th scope="col">Hora</th>
+      <th scope="col">Acciones</th>
+
     </tr>
   </thead>
   <tbody>
@@ -33,7 +35,11 @@ include_once "../layout/header.php";
             echo "<td>" . $appoiment["tipo_cita_id"]. "</td>";
             echo "<td>" . $appoiment["fecha"]. "</td>";
             echo "<td>" . $appoiment["hora"]. "</td>";
-            echo "</tr>";
+            echo "<td>
+            <a href='./deleteAppoiment.php?id=".$appoiment['id']."'>'<button class='btn btn-danger'>Eliminar</button>
+            <a href='./editAppoiment.php?id=".$appoiment['id']."'>'<button class='btn btn-primary'>Actualizar</button>
+            </td>
+            </tr>";
 
         }
     ?>

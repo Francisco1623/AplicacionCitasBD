@@ -14,4 +14,17 @@ class AppoimentUtility{
     
 
 }
+
+public static function getAppoimentById($id){
+    try{
+        $instance = Database::getInstance();
+            $query = "SELECT citas.id as \"id\", nombre_usuario as \"usuario_id\",nombre as \"tipo_cita_id\", fecha, hora FROM citas , usuarios, tipos_cita where citas.usuario_id = usuarios.id and citas.tipo_cita_id =tipos_cita.id and citas.id = :id";
+        $stmt = $instance->prepare($query);
+        $stmt -> bindParam(':id',$id,PDO::PARAM_INT);
+        $stmt -> execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+            throw new Exception("Error al buscar la cita");
+        }
+}
 }
