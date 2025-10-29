@@ -45,13 +45,13 @@ public static function deleteAppoiment($id){
 public static function updateAppoiment($id,$userId,$typeId,$date,$time){
     try{
         $instance = Database::getInstance();
-        $query = "UPDATE citas  SET (usuario_id,tipo_citas_id,fecha,hora) VALUES(:userId,:typeId,:date,:time) where id=:id ";
+        $query = "UPDATE citas SET usuario_id = :userId ,tipo_cita_id = :typeId,fecha = :date,hora = :time where id=:id";
         $stmt = $instance->prepare($query);
         $stmt -> bindParam(':id',$id,PDO::PARAM_INT);
         $stmt -> bindParam(':userId',$userId,PDO::PARAM_INT);
         $stmt -> bindParam(':typeId',$typeId,PDO::PARAM_INT);
-        $stmt -> bindParam(':date',$date,PDO::PARAM_DATE);
-        $stmt -> bindParam(':time',$time,PDO::PARAM_TIME);
+        $stmt -> bindParam(':date',$date,PDO::PARAM_STR);
+        $stmt -> bindParam(':time',$time,PDO::PARAM_STR);
         $stmt -> execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }catch(Exception $e){

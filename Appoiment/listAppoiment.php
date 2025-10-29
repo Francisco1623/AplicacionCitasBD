@@ -36,8 +36,12 @@ include_once "../layout/header.php";
             echo "<td>" . $appoiment["fecha"]. "</td>";
             echo "<td>" . $appoiment["hora"]. "</td>";
             echo "<td>
-            <a href='./formAppoiment.php?id=".$appoiment['id']."&action=delete'>'<button class='btn btn-danger'>Eliminar</button>
-            <a href='./formAppoiment.php?id=".$appoiment['id']."&action=edit'>'<button class='btn btn-primary'>Editar</button>
+            <a class='btn btn-secondary' type='button' href='./formAppoiment.php?id=".$appoiment['id']."&action=viewMore'>Ver Más</a>
+
+            <a class='btn btn-primary' type='button' href='./formAppoiment.php?id=".$appoiment['id']."&action=edit'>Editar</a>
+
+            <a class='btn btn-danger' type='button' href='./formAppoiment.php?id=".$appoiment['id']."&action=delete'>Eliminar</a>
+
             </td>
             </tr>";
 

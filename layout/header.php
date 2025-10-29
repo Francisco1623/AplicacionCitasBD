@@ -4,6 +4,7 @@ $url = str_replace($_SERVER['DOCUMENT_ROOT'],'',__DIR__);
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
 
@@ -15,9 +16,16 @@ $url = str_replace($_SERVER['DOCUMENT_ROOT'],'',__DIR__);
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="<?= $url ?> /../Appoiment/listAppoiment.php">Lista Citas</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Citas
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item"><a class="nav-link" href="<?= $url ?> /../Appoiment/listAppoiment.php">Lista Citas</a></li>
+            <li class="dropdown-item"><a class="nav-link" href="<?= $url ?> /../Appoiment/formAppoiment.php?action=add">Añadir Cita</a></li>
+          </ul>
         </li>
+        
         <li class="nav-item">
           <a class="nav-link" href="<?= $url ?> /../User/listUsers.php">Lista Usuarios</a>
         </li>
