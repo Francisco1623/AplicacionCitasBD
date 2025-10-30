@@ -10,6 +10,8 @@ include_once "../layout/header.php";
       <th scope="col">Id</th>
       <th scope="col">Nombre</th>
       <th scope="col">Contraseña</th>
+      <th scope="col">Acciones</th>
+
     </tr>
   </thead>
   <tbody>
@@ -29,7 +31,15 @@ include_once "../layout/header.php";
             echo "<th scope=\"row\">" . $user["id"] . "</th>";
             echo "<td>" . $user["nombre_usuario"]. "</td>";
             echo "<td>" . $user["contrasena"]. "</td>";
-            echo "</tr>";
+            echo "<td>
+            <a class='btn btn-secondary' type='button' href='./formUser.php?id=".$user['id']."&action=viewMore'>Ver Más</a>
+
+            <a class='btn btn-primary' type='button' href='./formUser.php?id=".$user['id']."&action=edit'>Editar</a>
+
+            <a class='btn btn-danger' type='button' href='./formUser.php?id=".$user['id']."&action=delete'>Eliminar</a>
+
+            </td>
+            </tr>";
 
         }
     ?>

@@ -22,7 +22,12 @@ public static function getAppoimentById($id){
         $stmt = $instance->prepare($query);
         $stmt -> bindParam(':id',$id,PDO::PARAM_INT);
         $stmt -> execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        if($stmt->rowCount()==0){
+            throw new Exception("Error en actualizar la cita");
+        }else{
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        }
     }catch(Exception $e){
             throw new Exception("Error al encontrar la cita");
         }
@@ -35,7 +40,12 @@ public static function deleteAppoiment($id){
         $stmt = $instance->prepare($query);
         $stmt -> bindParam(':id',$id,PDO::PARAM_INT);
         $stmt -> execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        if($stmt->rowCount()==0){
+            throw new Exception("Error en actualizar la cita");
+        }else{
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        }
     }catch(Exception $e){
             throw new Exception("Error al encontrar la cita");
         }
@@ -53,7 +63,37 @@ public static function updateAppoiment($id,$userId,$typeId,$date,$time){
         $stmt -> bindParam(':date',$date,PDO::PARAM_STR);
         $stmt -> bindParam(':time',$time,PDO::PARAM_STR);
         $stmt -> execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        if($stmt->rowCount()==0){
+            throw new Exception("Error en actualizar la cita");
+        }else{
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        }
+    }catch(Exception $e){
+            throw new Exception("Error al encontrar la cita");
+        }
+}
+
+
+public static function addAppoiment($userId,$typeId,$date,$time){
+    try{
+        $instance = Database::getInstance();
+        $query = "INSERT INTO citas (usuario_id,tipo_cita_id,fecha,hora)VALUES (:userId,:typeId,:date,:time)";
+        $stmt = $instance->prepare($query);
+        $date = new DateTime($date->format('Y-m-d'));
+        $time = new DateTime($time->format('H:i:s'));
+        $stmt -> bindParam(':userId',$userId,PDO::PARAM_INT);
+        $stmt -> bindParam(':typeId',$typeId,PDO::PARAM_INT);
+        $stmt -> bindParam(':date',$date,PDO::PARAM_STR);
+        $stmt -> bindParam(':time',$time,PDO::PARAM_STR);
+        $stmt -> execute();
+        if($stmt->rowCount()==0){
+            throw new Exception("Error en actualizar la cita");
+        }else{
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        }
+        
     }catch(Exception $e){
             throw new Exception("Error al encontrar la cita");
         }

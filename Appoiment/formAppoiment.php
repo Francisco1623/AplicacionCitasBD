@@ -64,8 +64,10 @@ if(isset($_GET['action'])){
                 echo "<script>window.location.href='./listAppoiment.php'</script>";
 
             }else{
-
+              AppoimentUtility::addAppoiment($_POST['user'], $_POST['type'],$_POST['date'],$_POST['time']);
+              echo "<script>window.location.href='./listAppoiment.php'</script>";
             }
+            
         }else{
             $appoimentId = null;
             $listTypeAppoiment = TypeAppoimentUtility::getTypeAppoiment();
@@ -78,7 +80,7 @@ if(isset($_GET['action'])){
                 echo "<script>window.location.href='./listAppoiment.php'</script>";
 
             }else{
-
+              
             }
         }else{
             $appoimentId = AppoimentUtility::getAppoimentById($_GET['id']);
@@ -89,7 +91,7 @@ if(isset($_GET['action'])){
         
     }
 
-}
+  }
 
 
 
