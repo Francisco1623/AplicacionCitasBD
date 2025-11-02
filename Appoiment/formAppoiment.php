@@ -21,9 +21,13 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 if(isset($_GET['action'])){
     if($_GET['action']=='edit'){
         if($_SERVER['REQUEST_METHOD']=='POST'){
+          if(isset($_POST['volver'])){
+                echo "<script>window.location.href='./listAppoiment.php'</script>";
+
+            }else{
             AppoimentUtility::updateAppoiment($_GET['id'],$_POST['user'], $_POST['type'],$_POST['date'],$_POST['time']);
             echo "<script>window.location.href='./listAppoiment.php'</script>";
-
+            }
         }else{
             if(isset($_GET['id'])){
                 $appoimentId = AppoimentUtility::getAppoimentById($_GET['id']);

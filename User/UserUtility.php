@@ -42,13 +42,13 @@ public static function deleteUser($id){
 }
 
 
-public static function updateUser($id,$name,$password){
+public static function updateUser($id,$user,$password){
     try{
         $instance = Database::getInstance();
-        $query = "UPDATE usuarios SET id = :id ,nombre_usuario = :name,contrasena = :password where id=:id";
+        $query = "UPDATE usuarios SET id = :id ,nombre_usuario = :user,contrasena = :password where id=:id";
         $stmt = $instance->prepare($query);
         $stmt -> bindParam(':id',$id,PDO::PARAM_INT);
-        $stmt -> bindParam(':name',$name,PDO::PARAM_STR);
+        $stmt -> bindParam(':user',$user,PDO::PARAM_STR);
         $stmt -> bindParam(':password',$password,PDO::PARAM_STR);
         $stmt -> execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -58,13 +58,13 @@ public static function updateUser($id,$name,$password){
 }
 
 
-public static function addUser($name,$password){
+public static function addUser($user,$password){
     try{
         $instance = Database::getInstance();
-        $query = "INSERT INTO usuarios (name,password)VALUES (:name,:password)";
+        $query = "INSERT INTO usuarios (nombre_usuario,contrasena)VALUES (:user,:password)";
         $stmt = $instance->prepare($query);
-        $stmt -> bindParam(':name',$userId,PDO::PARAM_STR);
-        $stmt -> bindParam(':password',$typeId,PDO::PARAM_STR);
+        $stmt -> bindParam(':user',$user,PDO::PARAM_STR);
+        $stmt -> bindParam(':password',$password,PDO::PARAM_STR);
         $stmt -> execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
         

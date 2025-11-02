@@ -25,10 +25,18 @@ $url = str_replace($_SERVER['DOCUMENT_ROOT'],'',__DIR__);
             <li class="dropdown-item"><a class="nav-link" href="<?= $url ?> /../Appoiment/formAppoiment.php?action=add">Añadir Cita</a></li>
           </ul>
         </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="<?= $url ?> /../User/listUsers.php">Lista Usuarios</a>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Usuarios
+          </a>
+          <ul class="dropdown-menu">
+            <li class="nav-item"><a class="nav-link" href="<?= $url ?> /../User/listUsers.php">Lista Usuarios</a></li>            
+            <li class="dropdown-item"><a class="nav-link" href="<?= $url ?> /../User/formUser.php?action=add">Añadir Usuario</a></li>
+          </ul>
         </li>
+        
+       
         <li class="nav-item">
           <a class="nav-link" href="<?= $url ?> /../TypeAppoiment/listTypeAppoiment.php">Lista Tipos de Citas</a>
         </li>
