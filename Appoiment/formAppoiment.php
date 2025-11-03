@@ -30,9 +30,15 @@ if(isset($_GET['action'])){
             }
         }else{
             if(isset($_GET['id'])){
+              try{
                 $appoimentId = AppoimentUtility::getAppoimentById($_GET['id']);
                 $listTypeAppoiment = TypeAppoimentUtility::getTypeAppoiment();
                 $listUsers = UserUtility::getUsers();
+              }catch(Exception $e){
+                    echo "<script>window.location.href='../error.php'</script>";
+
+              }
+                
             
 
             }else{
@@ -53,9 +59,15 @@ if(isset($_GET['action'])){
             
         }else{
             if(isset($_GET['id'])){
-                    $appoimentId = AppoimentUtility::getAppoimentById($_GET['id']);
+              try{
+                $appoimentId = AppoimentUtility::getAppoimentById($_GET['id']);
                     $listTypeAppoiment = TypeAppoimentUtility::getTypeAppoiment();
                     $listUsers = UserUtility::getUsers();
+              }catch(Exception $e){
+                        echo "<script>window.location.href='../error.php'</script>";
+
+              }
+                    
                 
                 }else{
                         echo "<script>window.location.href='../error.php'</script>";
@@ -73,9 +85,15 @@ if(isset($_GET['action'])){
             }
             
         }else{
+          try{
             $appoimentId = null;
             $listTypeAppoiment = TypeAppoimentUtility::getTypeAppoiment();
             $listUsers = UserUtility::getUsers();
+          }catch(Exception $e){
+            echo "<script>window.location.href='../error.php'</script>";
+
+          }
+            
         }
 
     }else if($_GET['action']=='viewMore'){
@@ -83,19 +101,27 @@ if(isset($_GET['action'])){
             if(isset($_POST['volver'])){
                 echo "<script>window.location.href='./listAppoiment.php'</script>";
 
-            }else{
-              
             }
         }else{
+          try{
             $appoimentId = AppoimentUtility::getAppoimentById($_GET['id']);
             $listTypeAppoiment = TypeAppoimentUtility::getTypeAppoiment();
             $listUsers = UserUtility::getUsers();
+          }catch(Exception $e){
+            echo "<script>window.location.href='../error.php'</script>";
+          }
+            
         }
 
         
+    }else{
+        echo '<p>La acción no es válida</p>';
+
     }
 
-  }
+  }else{
+  echo '<p>No se encuentra la acción</p>';
+}
 
 
 
@@ -103,6 +129,7 @@ if(isset($_GET['action'])){
 
 
 ?>
+<?php if(isset($_GET['action']) && !empty($_GET['action'])): ?>
 
 <form method='POST'>
     <?php if($_GET['action']!='add'): ?>
@@ -182,7 +209,7 @@ if(isset($_GET['action'])){
     </div>
   </div>
 </form>
-
+<?php endif; ?>
 <?php
 require_once '../layout/footer.php';
 ?>

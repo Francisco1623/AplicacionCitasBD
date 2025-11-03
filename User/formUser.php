@@ -111,10 +111,16 @@ if(isset($_GET['action'])){
 
             }
         }
+    }else{
+        echo '<p>La acción no es válida</p>';
+
     }
+}else{
+  echo '<p>No se encuentra la acción</p>';
 }
 ?>
 
+<?php if(isset($_GET['action']) && !empty($_GET['action'])): ?>
 <form method='POST'>
     <?php if($_GET['action']!='add'): ?>
 
@@ -161,10 +167,10 @@ if(isset($_GET['action'])){
     </div>
   </div>
 </form>
+<?php endif; ?>
 
 <?php
 require_once '../layout/footer.php';
 ?>
 
 
-?>
