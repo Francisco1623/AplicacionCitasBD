@@ -18,11 +18,16 @@ class UserUtility{
     public static function getUserById($id){
     try{
         $instance = Database::getInstance();
-            $query = "SELECT id, nombre_usuario, contrasena FROM usuarios where id = :id";
+        $query = "SELECT id, nombre_usuario, contrasena FROM usuarios where id = :id";
         $stmt = $instance->prepare($query);
         $stmt -> bindParam(':id',$id,PDO::PARAM_INT);
         $stmt -> execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if(!$user){
+            throw new Exception("El usuario con ID $id no existe en la base de datos");
+
+        }
+        return $user;
     }catch(Exception $e){
             throw new Exception("Error al encontrar el usuario");
         }
@@ -43,15 +48,15 @@ public static function deleteUser($id){
 
 
 public static function updateUser($id,$user,$password){
+    $exist = self::existUser($user);
+    if(!empty($exist)){
+        throw new Exception("El usuario ya existe en la base de datos");    
+        }
     try{
         $instance = Database::getInstance();
         $query = "UPDATE usuarios SET nombre_usuario = :user,contrasena = :password where id=:id";
         $stmt = $instance->prepare($query);
-        $exist = self::existUser($user);
-        if(!empty($exist)){
-            throw new Exception("El usuario ya existe en la base de datos");
-            
-        }
+       
         $stmt -> bindParam(':id',$id,PDO::PARAM_INT);
         $stmt -> bindParam(':user',$user,PDO::PARAM_STR);
         $stmt -> bindParam(':password',$password,PDO::PARAM_STR);
@@ -77,6 +82,10 @@ public static function existUser($user){
 
 
 public static function addUser($user,$password){
+    $exist = self::existUser($user);
+    if(!empty($exist)){
+        throw new Exception("El usuario ya existe en la base de datos");    
+        }
     try{
         $instance = Database::getInstance();
         $query = "INSERT INTO usuarios (nombre_usuario,contrasena)VALUES (:user,:password)";

@@ -10,14 +10,31 @@ if(isset($_GET['action'])){
                 echo "<script>window.location.href='./listUsers.php'</script>";
 
             }else{
-            UserUtility::updateUser($_GET['id'],$_POST['user'],$_POST['password']);
-            echo "<script>window.location.href='./listUsers.php'</script>";
+              try{
+                UserUtility::updateUser($_GET['id'],$_POST['user'],$_POST['password']);
+                echo "<script>window.location.href='./listUsers.php'</script>";
+              }catch(Exception $e){
+                echo $e->getMessage();
+                if(isset($_GET['id'])){
+                  $userId = UserUtility::getUserById($_GET['id']);
+            
+
+                }else{
+                    echo "<script>window.location.href='../error.php'</script>";
+
+                }
+              }
+            
             }
         }else{
             if(isset($_GET['id'])){
+              try{
                 $userId = UserUtility::getUserById($_GET['id']);
-                $listUsers = UserUtility::getUsers();
-            
+              }catch(Exception $e){
+                echo "<script>window.location.href='../error.php'</script>";
+                
+
+              }
 
             }else{
                 echo "<script>window.location.href='../error.php'</script>";
@@ -36,8 +53,13 @@ if(isset($_GET['action'])){
             }
         }else{
             if(isset($_GET['id'])){
+                try{
                 $userId = UserUtility::getUserById($_GET['id']);
-                $listUsers = UserUtility::getUsers();
+              }catch(Exception $e){
+                echo "<script>window.location.href='../error.php'</script>";
+                
+
+              }
             
 
             }else{
@@ -52,13 +74,17 @@ if(isset($_GET['action'])){
                 echo "<script>window.location.href='./listUsers.php'</script>";
 
             }else{
-            UserUtility::addUser($_POST['user'],$_POST['password']);
-            echo "<script>window.location.href='./listUsers.php'</script>";
+              try{
+                UserUtility::addUser($_POST['user'],$_POST['password']);
+                echo "<script>window.location.href='./listUsers.php'</script>";
+              }catch(Exception $e){
+                echo $e->getMessage();
+              }
+            
             }
         }else{
            
             $userId = null;
-            $listUsers = UserUtility::getUsers();
             
 
            
@@ -68,13 +94,16 @@ if(isset($_GET['action'])){
           if(isset($_POST['volver'])){
                 echo "<script>window.location.href='./listUsers.php'</script>";
 
-            }else{
-            
             }
         }else{
             if(isset($_GET['id'])){
+              try{
                 $userId = UserUtility::getUserById($_GET['id']);
-                $listUsers = UserUtility::getUsers();
+              }catch(Exception $e){
+                echo "<script>window.location.href='../error.php'</script>";
+                
+
+              }
             
 
             }else{
