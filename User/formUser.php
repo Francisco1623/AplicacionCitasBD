@@ -107,17 +107,7 @@ if(isset($_GET['action'])){
   <div class="form-group row">
     <label for="user" class="col-4 col-form-label">Usuario</label> 
     <div class="col-8">
-    
-    <?php if($_GET['action']!='add'): ?>
-      <select id="user" name="user" class="custom-select" <?= $_GET['action']=='delete' || $_GET['action']=='viewMore'?'disabled':'' ?>>
-        <?php foreach($listUsers as $user): ?>
-                <option value="<?= $user['nombre_usuario'] ?>" <?= $user['nombre_usuario']===$userId['nombre_usuario']?'selected':''; ?> ><?= $user['nombre_usuario'];  ?></option>            
-        <?php endforeach; ?>
-      </select>
-      <?php else: ?>
-      <input id="user" name="user" type="text" class="form-control" >
-      <?php endif;?>
-      
+        <input id="user" name="user" type="text" class="form-control" <?= $_GET['action']!='add' && $_GET['action']!='edit'?'readonly':'';  ?> value='<?= $_GET['action']!='add'?$userId['nombre_usuario']:'';  ?>'>
     </div>
   </div>
   <div class="form-group row">

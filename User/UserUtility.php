@@ -37,7 +37,7 @@ public static function deleteUser($id){
         $stmt -> execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }catch(Exception $e){
-            throw new Exception("Error al encontrar el usuario");
+            throw new Exception("Error al eliminar el usuario");
         }
 }
 
@@ -45,11 +45,29 @@ public static function deleteUser($id){
 public static function updateUser($id,$user,$password){
     try{
         $instance = Database::getInstance();
-        $query = "UPDATE usuarios SET id = :id ,nombre_usuario = :user,contrasena = :password where id=:id";
+        $query = "UPDATE usuarios SET nombre_usuario = :user,contrasena = :password where id=:id";
         $stmt = $instance->prepare($query);
+        $exist = self::existUser($user);
+        if(!empty($exist)){
+            throw new Exception("El usuario ya existe en la base de datos");
+            
+        }
         $stmt -> bindParam(':id',$id,PDO::PARAM_INT);
         $stmt -> bindParam(':user',$user,PDO::PARAM_STR);
         $stmt -> bindParam(':password',$password,PDO::PARAM_STR);
+        $stmt -> execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+            throw new Exception("Error al actualizar el usuario");
+        }
+}
+
+public static function existUser($user){
+    try{
+        $instance = Database::getInstance();
+        $query = "SELECT nombre_usuario FROM usuarios WHERE nombre_usuario=:user";
+        $stmt = $instance->prepare($query);
+        $stmt -> bindParam(':user',$user,PDO::PARAM_STR);
         $stmt -> execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }catch(Exception $e){
@@ -69,7 +87,7 @@ public static function addUser($user,$password){
         return $stmt->fetch(PDO::FETCH_ASSOC);
         
     }catch(Exception $e){
-            throw new Exception("Error al encontrar al crear el usuario");
+            throw new Exception("Error al crear el usuario");
         }
 }
 }
