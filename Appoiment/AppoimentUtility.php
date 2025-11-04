@@ -15,6 +15,20 @@ class AppoimentUtility{
 
 }
 
+
+public static function getAppoimentsByUser($user){
+    try{    
+        $instance = Database::getInstance();
+        $query = "SELECT citas.id,usuarios.nombre_usuario,tipos_cita.nombre,citas.fecha,citas.hora FROM citas,usuarios,tipos_cita WHERE usuarios.id = citas.usuario_id AND citas.tipo_cita_id=tipos_cita.id AND citas.usuario_id = :user";
+        $stmt = $instance->prepare($query);
+        $stmt -> bindParam(':user',$user,PDO::PARAM_INT);
+        $stmt -> execute();
+    }catch(Exception $e){
+        throw new Exception("Error al encontrar el usuario");
+    }
+}
+
+
 public static function getAppoimentById($id){
     try{
         $instance = Database::getInstance();
@@ -32,6 +46,8 @@ public static function getAppoimentById($id){
             throw new Exception("Error al encontrar la cita");
         }
 }
+
+
 
 public static function deleteAppoiment($id){
     try{

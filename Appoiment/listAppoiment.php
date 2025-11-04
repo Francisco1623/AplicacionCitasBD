@@ -1,7 +1,6 @@
 <?php
-include_once "./AppoimentUtility.php";
 include_once "../layout/header.php";
-
+include_once "./AppoimentUtility.php";
 ?>
 
 <table class="table">
@@ -20,15 +19,21 @@ include_once "../layout/header.php";
 
     <?php
         try{
-          $appoiments = AppoimentUtility::getAppoiments();
+          if(isset($_SESSION['role']) && $_SESSION['role']=='ADMIN'){
+            $appoiments = AppoimentUtility::getAppoiments();
+          }else{
+            $appoiments = AppoimentUtility::getAppoimentsByUser($_SESSION['id']);
 
+          }
+          
         }
         catch (Exception $e){
           echo $e -> getMessage();
           $appoiments=[];
 
         }
-        foreach ($appoiments as $appoiment){
+        
+          foreach ($appoiments as $appoiment){
             echo "<tr>";
             echo "<th scope=\"row\">" . $appoiment["id"] . "</th>";
             echo "<td>" . $appoiment["usuario_id"]. "</td>";
@@ -46,6 +51,8 @@ include_once "../layout/header.php";
             </tr>";
 
         }
+        
+        
     ?>
     
   </tbody>
