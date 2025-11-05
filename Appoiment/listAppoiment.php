@@ -21,9 +21,14 @@ include_once "./AppoimentUtility.php";
         try{
           if(isset($_SESSION['role']) && $_SESSION['role']=='ADMIN'){
             $appoiments = AppoimentUtility::getAppoiments();
-          }else{
+          }elseif(isset($_SESSION['role']) && $_SESSION['role'] == 'USER'){
             $appoiments = AppoimentUtility::getAppoimentsByUser($_SESSION['id']);
 
+          }else{
+            echo "No te has logueado. ";
+            echo "<a href='../Login/login.php'>Iniciar Sesión</a>";
+
+            $appoiments = [];
           }
           
         }
@@ -32,12 +37,12 @@ include_once "./AppoimentUtility.php";
           $appoiments=[];
 
         }
-        
+        if(isset($_SESSION['id'])){
           foreach ($appoiments as $appoiment){
             echo "<tr>";
             echo "<th scope=\"row\">" . $appoiment["id"] . "</th>";
-            echo "<td>" . $appoiment["usuario_id"]. "</td>";
-            echo "<td>" . $appoiment["tipo_cita_id"]. "</td>";
+            echo "<td>" . $appoiment["nombre_usuario"]. "</td>";
+            echo "<td>" . $appoiment["nombre"]. "</td>";
             echo "<td>" . $appoiment["fecha"]. "</td>";
             echo "<td>" . $appoiment["hora"]. "</td>";
             echo "<td>
@@ -51,6 +56,7 @@ include_once "./AppoimentUtility.php";
             </tr>";
 
         }
+      }
         
         
     ?>

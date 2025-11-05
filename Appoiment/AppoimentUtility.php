@@ -23,6 +23,8 @@ public static function getAppoimentsByUser($user){
         $stmt = $instance->prepare($query);
         $stmt -> bindParam(':user',$user,PDO::PARAM_INT);
         $stmt -> execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     }catch(Exception $e){
         throw new Exception("Error al encontrar el usuario");
     }
